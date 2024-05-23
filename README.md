@@ -2,22 +2,28 @@
 # Terraform
 
 ______________________________________________________________________________________________
+## Terraform links
+Modules - https://registry.terraform.io/browse/modules
+Providers - https://registry.terraform.io/browse/providers
+Docs = https://developer.hashicorp.com/terraform?product_intent=terraform
+
+______________________________________________________________________________________________
 ## Terraform installation (preferred):
 terraform-CLI | AWS CLI | VS Code Editor | Terraform plugin for VS Code
 
 ______________________________________________________________________________________________
 ## Terraform Workflow and command
 terraform init --> terraform validate --> terraform plan --> terraform apply --> terraform destroy
-terraform init (first command to run other writing a new Terraform configuration) use to initialize a working dir/download providers
-terraform validate (validate the terraform config files in that respective dir to ensure syntax is valid)
-terraform plan (show all plan belong to our config file, like all info about instance creating, and so on...)
-terraform apply (used to apply the changes required to reach the desired state of the configuration)
-terraform apply auto-approve
-terraform destroy (using to destroy the Terraform-managed infrastructure/ask to confirm before destroying)
-terraform fmt (format written files according terraform syntax)
-terraform console (console for evaluating expressions)
-terraform output es2_instance_pivateip (output value)
-terraform output -json
+1) terraform init (first command to run other writing a new Terraform configuration) use to initialize a working dir/download providers
+2) terraform validate (validate the terraform config files in that respective dir to ensure syntax is valid)
+3) terraform plan (show all plan belong to our config file, like all info about instance creating, and so on...)
+4) terraform apply (used to apply the changes required to reach the desired state of the configuration)
+5) terraform apply auto-approve
+6) terraform destroy (using to destroy the Terraform-managed infrastructure/ask to confirm before destroying)
+7) terraform fmt (format written files according terraform syntax)
+8) terraform console (console for evaluating expressions)
+9) terraform output es2_instance_pivateip (output value)
+10) terraform output -json
 
 ______________________________________________________________________________________________
 ## Terraform basic preconditions:
@@ -79,11 +85,11 @@ ________________________________________________________________________________
 
 ______________________________________________________________________________________________
 ## Assign variables/Override variables
-terraform plan -var="ec2_instance_type=t3.small" -var="ec2_instance_count=1"
-terraform plan -var="ec2_instance_type=t3.small" -var="ec2_instance_count=1" -out v3plan.out (create plan)
-terraform apply v3plan.out
-export TF_VAR_ec2_instance_count=1 (if we terraform plan - terraform will get this var and use it)
-unset TF_VAR_ec2_instance_count ( don't use environment vars)
+1) terraform plan -var="ec2_instance_type=t3.small" -var="ec2_instance_count=1"
+2) terraform plan -var="ec2_instance_type=t3.small" -var="ec2_instance_count=1" -out v3plan.out (create plan)
+3) terraform apply v3plan.out
+4) export TF_VAR_ec2_instance_count=1 (if we terraform plan - terraform will get this var and use it)
+5) unset TF_VAR_ec2_instance_count ( don't use environment vars)
 
 ______________________________________________________________________________________________
 # Terraform Fundamental Blocks
@@ -134,23 +140,25 @@ ________________________________________________________________________________
 
 ______________________________________________________________________________________________
 ## Terraform State
-Terraform backend (responsible for storing state and providing an API for state locking)
-Terraform State Storage (aws s3 bucket) - backend place where terraform.tfstate file locate (significant thing for multi-employees)
-Terraform State Locking (aws DynamoDB) - backend noSQL db used for locked state where update takes place, at this time terraform.tfstate file can't to be updated
+1) Terraform backend (responsible for storing state and providing an API for state locking)
+2) Terraform State Storage (aws s3 bucket) - backend place where terraform.tfstate file locate (significant thing for multi-employees)
+3) Terraform State Locking (aws DynamoDB) - backend noSQL db used for locked state where update takes place, at this time terraform.tfstate file can't to be updated
+
+______________________________________________________________________________________________
 #Terraform state command
-terraform show - show output from terraform plan but human readable
-terraform refresh - refresh terraform.tfsate if some changes were updated in aws ui and we need to update or desired state to real state
-terraform state list - list all resources in terraform.tfsate file without attributes
-terraform state show - show resources attributes
-terraform state mv - very dangerous command (move an item and change local terraform resource name)just change state configouration by changing name, IF WE USE plan/apply -resource will be recreated
-terraform state rm - remove resource from desire state (after in current resource in provider will be working but it can't be managed by terraform)
-terraform state replace provider - change the provider
-terraform state pull - download and output the state from remote state
-terraform state push - push you local terraform.tfstate into remote
-terraform force-unlock - removes the lock on the state for the current configuration (only remove configuration can be unlock)
-terraform taint (terraform taint <Resource_NAME>) - auto-mark terraform resource as taint - and this resource will be destroed and recreated during next terraform apply
-terraform untaint - untaint terraform resource (without manage infrastructure)
-terraform apply target - used for focusing Terraform's attantion on only a subset of resources
+1) terraform show - show output from terraform plan but human readable
+2) terraform refresh - refresh terraform.tfsate if some changes were updated in aws ui and we need to update or desired state to real state
+3) terraform state list - list all resources in terraform.tfsate file without attributes
+4) terraform state show - show resources attributes
+5) terraform state mv - very dangerous command (move an item and change local terraform resource name)just change state configouration by changing name, IF WE USE plan/apply -resource will be recreated
+6) terraform state rm - remove resource from desire state (after in current resource in provider will be working but it can't be managed by terraform)
+7) terraform state replace provider - change the provider
+8) terraform state pull - download and output the state from remote state
+9) terraform state push - push you local terraform.tfstate into remote
+10) terraform force-unlock - removes the lock on the state for the current configuration (only remove configuration can be unlock)
+11) terraform taint (terraform taint <Resource_NAME>) - auto-mark terraform resource as taint - and this resource will be destroed and recreated during next terraform apply
+12) terraform untaint - untaint terraform resource (without manage infrastructure)
+13) terraform apply target - used for focusing Terraform's attantion on only a subset of resources
 
 ______________________________________________________________________________________________
 # Terraform workspaces
@@ -160,7 +168,7 @@ developer working on a complex set of infrastructure changes need to create a ne
 don't recommend using workspace with huge infra/recomended to use separate configuration dirs
 for remote backend when we create new workspace - path to terraform.tfstate (s3/bucket/${bucket-name}/env:/${workspace-name}/workspace/terraform.tfstate)
 
-
+______________________________________________________________________________________________
 ## Terraform workspace commands
 terraform workspace show - show your current workspace
 terraform workspace list - show all workspaces
@@ -180,6 +188,7 @@ Types of provisioners:
 If povisioners failed - terraform apply failed too (can change it on_failure = continue, default on_failure = fail)
 if terraform apply failed (and on_failure = fail) - the resource will be automatically tainted and after second approve resource will be recreated
 
+______________________________________________________________________________________________
 ## Connection block
 Most provisioners require access to remote resource (SSH/WinRM), and expect connection block
 Null_resource (if we need to create a chean of action) ex: 1 resource time sleap --- 2 resource timestamp from first resource "
@@ -187,10 +196,10 @@ Also reusable every time when terraform apply used
 
 ______________________________________________________________________________________________
 # Terraform modules
-Modules - containers for multiple resources that are used together.
+1) Modules - containers for multiple resources that are used together.
 every terraform conf has at least one module
 there are root modules and child modules
-Terraform registry - publicly avaliable modules
+2) Terraform registry - publicly avaliable modules
 private/public terraform modules registry
 possible to taint specific resource in the module (can't taint all module, need to taint every resource separatly)
 terraform get (both init/get command get modules, but best practic is using get, because terraform init also initialize backends and install plugins)
