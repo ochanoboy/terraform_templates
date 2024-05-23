@@ -1,11 +1,14 @@
 # terraform_templates
-# Terraform
 
+
+
+
+# Terraform
 ______________________________________________________________________________________________
 ## Terraform links
-Modules - https://registry.terraform.io/browse/modules
-Providers - https://registry.terraform.io/browse/providers
-Docs = https://developer.hashicorp.com/terraform?product_intent=terraform
+1) Modules - https://registry.terraform.io/browse/modules
+2) Providers - https://registry.terraform.io/browse/providers
+3) Docs = https://developer.hashicorp.com/terraform?product_intent=terraform
 
 ______________________________________________________________________________________________
 ## Terraform installation (preferred):
